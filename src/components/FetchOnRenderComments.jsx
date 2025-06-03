@@ -15,6 +15,7 @@ const FetchOnRenderComments = ({ postId }) => {
         setComments(fetchedComments);
         setLoading(false);
       } catch (err) {
+        if (err.name === 'AbortError') return;
         setError(err.message);
         setLoading(false);
       }
@@ -24,7 +25,12 @@ const FetchOnRenderComments = ({ postId }) => {
   }, [postId]);
 
   if (loading) return <Loading message={`Loading comments for post ${postId}`} />;
-  if (error) return <div>Error: {error}</div>;
+  if (error)
+    return (
+      <div className='alert alert-error shadow-lg'>
+        <span>{error}</span>
+      </div>
+    );
 
   return comments.map(comment => (
     <div key={comment.id} className='card bg-base-100 shadow-md p-4 mb-4'>

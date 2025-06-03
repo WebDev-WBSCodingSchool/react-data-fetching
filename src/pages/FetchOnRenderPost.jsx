@@ -18,6 +18,7 @@ const FetchOnRenderPost = () => {
         setPost(fetchedPost);
         setLoading(false);
       } catch (err) {
+        if (err.name === 'AbortError') return;
         setError(err.message);
         setLoading(false);
       }
@@ -28,7 +29,12 @@ const FetchOnRenderPost = () => {
   }, [id]);
 
   if (loading) return <Loading message={`Loading post ${id}`} />;
-  if (error) return <div>Error: {error}</div>;
+  if (error)
+    return (
+      <div className='alert alert-error shadow-lg'>
+        <span>{error}</span>
+      </div>
+    );
 
   return (
     <>
