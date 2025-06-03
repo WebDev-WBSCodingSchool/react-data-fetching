@@ -6,8 +6,12 @@ import {
   Home,
   NotFound,
   RenderAsYouFetch,
-  RenderAsYouFetchOrchestrator
+  RenderAsYouFetchOrchestrator,
+  RenderAsYouFetchReactRouter,
+  RenderAsYouFetchReactRouterPage
 } from './pages';
+import { Loading } from './components';
+import { loadPostWithComments } from './data';
 
 const App = () => {
   const router = createBrowserRouter(
@@ -18,6 +22,15 @@ const App = () => {
         <Route path='/fetch-on-render/:id' element={<FetchOnRenderPost />} />
         <Route path='/render-as-you-fetch' element={<RenderAsYouFetch />} />
         <Route path='/render-as-you-fetch/:id' element={<RenderAsYouFetchOrchestrator />} />
+        <Route path='/render-as-you-fetch-react-router' element={<RenderAsYouFetchReactRouter />} />
+        <Route
+          loader={loadPostWithComments}
+          hydrateFallbackElement={
+            <Loading message={`Loading data for post (only shows on first page load)`} />
+          }
+          path='/render-as-you-fetch-react-router/:id'
+          element={<RenderAsYouFetchReactRouterPage />}
+        />
         <Route path='*' element={<NotFound />} />
       </Route>
     )
