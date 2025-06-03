@@ -18,10 +18,8 @@ const FetchOnRenderPost = () => {
         setPost(fetchedPost);
         setLoading(false);
       } catch (err) {
-        if (err.name !== 'AbortError') {
-          setError(err.message);
-          setLoading(false);
-        }
+        setError(err.message);
+        setLoading(false);
       }
     };
     fetchPost();
