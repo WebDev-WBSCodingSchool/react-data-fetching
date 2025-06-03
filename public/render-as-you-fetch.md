@@ -11,8 +11,8 @@ To demonstrate the `render-as-you-fetch` approach to getting data into a React a
 - Click on any of the `posts` below and observe the waterfall of the requests and the order in which the components are rendered!
 - You should see something like this:
 
-![alt text for screen readers](/screenshot-for.png 'Text to show on mouseover')
+![alt text for screen readers](/screenshot-rayf.png 'Text to show on mouseover')
 
-This is a network waterfall!
+We have effectively flatten the waterfall by loading all data in parallel and render the UI as we get the data! Now, getting data takes however the slowest request takes
 
 ### ⚠️ Requests are and artificially slowed down!

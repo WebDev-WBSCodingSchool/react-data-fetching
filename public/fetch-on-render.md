@@ -13,6 +13,6 @@ To demonstrate the `fetch-on-render` approach to getting data into a React appli
 
 ![alt text for screen readers](/screenshot-for.png 'Text to show on mouseover')
 
-This is a network waterfall!
+This is a network waterfall! Since fetching data for comments doesn't start until we are done with the post itself, getting all the data takes the sum of the time that each individual request takes!
 
 ### ⚠️ Requests are and artificially slowed down!
