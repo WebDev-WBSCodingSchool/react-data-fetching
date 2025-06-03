@@ -3,6 +3,16 @@
 To demonstrate the `fetch-on-render` approach to getting data into a React application:
 
 - Open your developer tools and go to the Network tab
-- Click on any of the `posts` below and observe the waterfall of the requests and the order in which the components are rendered!
+- Right click on any of the headers (Name, Status, Type)
 
-### ⚠️ Requests are faked and artificially slowed down!
+  - Check that `Waterfall` header is enabled
+  - Check that `Waterfall>Start Time` view is enabled
+
+- Click on any of the `posts` below and observe the waterfall of the requests and the order in which the components are rendered!
+- You should see something like this:
+
+![alt text for screen readers](/screenshot-for.png 'Text to show on mouseover')
+
+This is a network waterfall!
+
+### ⚠️ Requests are and artificially slowed down!
