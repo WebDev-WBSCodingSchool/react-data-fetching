@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router';
 import { MainLayout } from './layouts';
 import {
   FetchOnRender,
@@ -10,8 +10,8 @@ import {
 } from './pages';
 
 const App = () => {
-  return (
-    <Routes>
+  const router = createBrowserRouter(
+    createRoutesFromElements(
       <Route element={<MainLayout />}>
         <Route index element={<Home />} />
         <Route path='/fetch-on-render' element={<FetchOnRender />} />
@@ -20,8 +20,9 @@ const App = () => {
         <Route path='/render-as-you-fetch/:id' element={<RenderAsYouFetchOrchestrator />} />
         <Route path='*' element={<NotFound />} />
       </Route>
-    </Routes>
+    )
   );
+  return <RouterProvider router={router} />;
 };
 
 export default App;
