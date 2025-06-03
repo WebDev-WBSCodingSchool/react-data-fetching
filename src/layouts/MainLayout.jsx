@@ -25,13 +25,13 @@ const MainLayout = () => {
         </div>
         <div className='flex-none'>
           <ul className='menu menu-horizontal px-1'>
-            <Link to='/register' className='btn btn-ghost'>
+            <Link to='/fetch-on-render' className='btn btn-ghost'>
               Fetch-on-Render
             </Link>
-            <Link to='/contact' className='btn btn-ghost'>
+            <Link to='/render-as-you-fetch' className='btn btn-ghost'>
               Render-as-you-Fetch
             </Link>
-            <Link to='/search' className='btn btn-ghost'>
+            <Link to='/render-as-you-fetch-react-router' className='btn btn-ghost'>
               Render-as-you-Fetch (React Router integration)
             </Link>
           </ul>
