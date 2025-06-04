@@ -1,6 +1,6 @@
-# Fetch on Render
+# Render as you Fetch (React Router Integration)
 
-To demonstrate the `fetch-on-render` approach to getting data into a React application:
+To demonstrate the `render-as-you-fetch` approach when you integrate the data loading logic into React Router:
 
 - Open your developer tools and go to the Network tab
 - Right click on any of the headers (Name, Status, Type)
@@ -11,8 +11,8 @@ To demonstrate the `fetch-on-render` approach to getting data into a React appli
 - Click on any of the `posts` below and observe the waterfall of the requests and the order in which the components are rendered!
 - You should see something like this:
 
-![alt text for screen readers](/screenshot-for.png 'Text to show on mouseover')
+![alt text for screen readers](/screenshot-rayf.png 'Text to show on mouseover')
 
-This is a network waterfall! Since fetching data for comments doesn't start until we are done with the post itself, getting all the data takes the sum of the time that each individual request takes!
+This should look roughly the same as the basic `render-as-you-fetch` example in terms of networking. Crucially, React Router takes over the responsability of aborting requests and all of that.
 
 ### ⚠️ Requests are and artificially slowed down!
