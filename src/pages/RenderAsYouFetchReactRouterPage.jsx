@@ -1,18 +1,17 @@
 import { Suspense } from 'react';
-import { useLoaderData, useParams } from 'react-router';
+import { useLoaderData } from 'react-router';
 import { Loading, RenderAsYouFetchComments, RenderAsYouFetchPost } from '../components';
 
 const RenderAsYouFetchReactRouterPage = () => {
-  const { id } = useParams();
-  const { post, comments } = useLoaderData();
+  const { postId } = useLoaderData();
 
   return (
     <>
-      <Suspense fallback={<Loading message={`Loading post ${id}`} />}>
-        <RenderAsYouFetchPost promise={post} />
+      <Suspense fallback={<Loading message={`Loading post ${postId}`} />}>
+        <RenderAsYouFetchPost postId={postId} />
       </Suspense>
-      <Suspense fallback={<Loading message={`Loading comments for post ${id}`} />}>
-        <RenderAsYouFetchComments promise={comments} />
+      <Suspense fallback={<Loading message={`Loading comments for post ${postId}`} />}>
+        <RenderAsYouFetchComments postId={postId} />
       </Suspense>
     </>
   );
