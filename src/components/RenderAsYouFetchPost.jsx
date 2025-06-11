@@ -1,7 +1,9 @@
-import { use } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { getCommentsByPostIdQuery } from '../queries';
 
-const RenderAsYouFetchPost = ({ promise }) => {
-  const post = use(promise);
+const RenderAsYouFetchPost = ({ postId }) => {
+  const { data: post } = useSuspenseQuery(getCommentsByPostIdQuery(postId));
+
   return (
     <div className='card bg-base-100 shadow-md p-4'>
       <h2 className='card-title'>{post.title}</h2>

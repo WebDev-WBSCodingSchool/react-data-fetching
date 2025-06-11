@@ -1,7 +1,9 @@
-import { getCommentsByPostId, getPostById } from '../api';
+import { getCommentsByPostIdQuery, getPostByIdQuery } from '../queries';
 
-export const loadPostWithComments = async ({ params }) => {
-  const post = getPostById(params.id);
-  const comments = getCommentsByPostId(params.id);
-  return { post, comments };
-};
+export const loadPostWithComments =
+  queryClient =>
+  async ({ params }) => {
+    queryClient.prefetchQuery(getPostByIdQuery(params.id));
+    queryClient.prefetchQuery(getCommentsByPostIdQuery(params.id));
+    return { postId: params.id };
+  };

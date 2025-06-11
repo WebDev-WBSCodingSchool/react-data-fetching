@@ -1,4 +1,5 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MainLayout } from './layouts';
 import {
   FetchOnRender,
@@ -13,6 +14,14 @@ import {
 import { ErrorElement, Loading } from './components';
 import { loadPostWithComments } from './data';
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 10
+    }
+  }
+});
+
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -25,7 +34,7 @@ const App = () => {
         <Route path='/render-as-you-fetch-react-router' element={<RenderAsYouFetchReactRouter />} />
         <Route
           path='/render-as-you-fetch-react-router/:id'
-          loader={loadPostWithComments}
+          loader={loadPostWithComments(queryClient)}
           hydrateFallbackElement={
             <Loading message={`Loading data for post (only shows on first page load)`} />
           }
@@ -36,7 +45,11 @@ const App = () => {
       </Route>
     )
   );
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 };
 
 export default App;
