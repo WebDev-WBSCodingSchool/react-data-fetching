@@ -2,7 +2,7 @@ import { Suspense, useRef } from 'react';
 import { useParams } from 'react-router';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Loading, RenderAsYouFetchComments, RenderAsYouFetchPost } from '../components';
-import { getPostById, getCommentsByPostId } from '../utils';
+import { getPostById, getCommentsByPostId } from '../api';
 
 const fallbackRender = ({ error }) => (
   <div className='my-5 alert alert-error shadow-lg'>
