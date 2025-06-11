@@ -1,8 +1,8 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { getCommentsByPostIdQuery } from '../queries';
+import { getPostByIdQuery } from '../queries';
 
 const RenderAsYouFetchPost = ({ postId }) => {
-  const { data: post } = useSuspenseQuery(getCommentsByPostIdQuery(postId));
+  const { data: post } = useSuspenseQuery(getPostByIdQuery(postId));
 
   return (
     <div className='card bg-base-100 shadow-md p-4'>
