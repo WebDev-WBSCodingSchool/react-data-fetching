@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Loading } from '../components';
-import { getCommentsByPostId } from '../utils';
+import { getCommentsByPostId } from '../api';
 
 const FetchOnRenderComments = ({ postId }) => {
   const [comments, setComments] = useState(null);

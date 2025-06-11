@@ -1,4 +1,4 @@
-import { getCommentsByPostId, getPostById } from '../utils';
+import { getCommentsByPostId, getPostById } from '../api';
 
 export const loadPostWithComments = async ({ params }) => {
   const post = getPostById(params.id);

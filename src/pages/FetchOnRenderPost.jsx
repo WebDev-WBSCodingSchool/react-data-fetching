@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { FetchOnRenderComments, Loading } from '../components';
-import { getPostById } from '../utils';
+import { getPostById } from '../api';
 
 const FetchOnRenderPost = () => {
   const { id } = useParams();
