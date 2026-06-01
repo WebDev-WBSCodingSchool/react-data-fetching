@@ -9,7 +9,7 @@ import type { PostLoaderData } from '../types';
 
 const RenderAsYouFetchReactRouterPage = () => {
 	const { id } = useParams();
-	const { post, comments } = useLoaderData() as PostLoaderData;
+	const { post, comments } = useLoaderData<PostLoaderData>();
 
 	return (
 		<>

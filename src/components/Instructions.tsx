@@ -18,10 +18,12 @@ const Instructions = ({ path }: { path: string }) => {
 				if (!res.ok)
 					throw new Error('Something went wrong. Contact your instructor');
 				setMarkdownText(await res.text());
-			} catch (e: any) {
-				if (e.name === 'AbortError') return;
-				setError('Failed to get instructions. Contact your instructor');
-				console.error(e);
+			} catch (e) {
+				if (e instanceof Error) {
+					if (e.name === 'AbortError') return;
+					setError('Failed to get instructions. Contact your instructor');
+					console.error(e);
+				}
 			} finally {
 				setLoading(false);
 			}

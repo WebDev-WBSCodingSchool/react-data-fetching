@@ -5,7 +5,7 @@ import type { Comment } from '../types';
 
 const FetchOnRenderComments = ({ postId }: { postId: string | number }) => {
 	const [comments, setComments] = useState<Comment[] | null>(null);
-	const [loading, setLoading] = useState<boolean>(true);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
@@ -13,15 +13,17 @@ const FetchOnRenderComments = ({ postId }: { postId: string | number }) => {
 		const fetchPost = async () => {
 			try {
 				const fetchedComments = await getCommentsByPostId(
-					String(postId),
+					+postId,
 					abortController.signal
 				);
 				setComments(fetchedComments);
 				setLoading(false);
-			} catch (err: any) {
-				if (err.name === 'AbortError') return;
-				setError(err.message);
-				setLoading(false);
+			} catch (err) {
+				if (err instanceof Error) {
+					if (err.name === 'AbortError') return;
+					setError(err.message);
+					setLoading(false);
+				}
 			}
 		};
 		fetchPost();

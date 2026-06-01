@@ -1,11 +1,15 @@
 import { useRouteError } from 'react-router';
 
 const ErrorElement = () => {
-	const error = useRouteError() as Error | null;
+	const error = useRouteError();
 
 	return (
 		<div className='alert alert-error shadow-lg'>
-			<span>{error?.message ?? 'Unknown error'}</span>
+			<span>
+				{error instanceof Object && 'message' in error
+					? (error.message as string)
+					: 'Unknown error'}
+			</span>
 		</div>
 	);
 };
