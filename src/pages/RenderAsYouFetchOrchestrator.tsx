@@ -1,4 +1,4 @@
-import { Suspense, useRef } from 'react';
+import { Suspense } from 'react';
 import { useParams } from 'react-router';
 import { ErrorBoundary } from 'react-error-boundary';
 import {
@@ -9,30 +9,37 @@ import {
 import { getPostById, getCommentsByPostId } from '../api';
 import type { Post, Comment } from '../types';
 
-const fallbackRender = ({ error }: { error: Error | any }) => (
+// Module-level cache avoids mutating refs during render
+const orchestratorCache = new Map<
+	string,
+	{ post: Promise<Post>; comments: Promise<Comment[]> }
+>();
+
+const fallbackRender = ({ error }: { error: unknown }) => (
 	<div className='my-5 alert alert-error shadow-lg'>
-		<span>{error?.message ?? String(error)}</span>
+		<span>
+			{error instanceof Object && 'message' in error
+				? (error.message as string)
+				: String(error)}
+		</span>
 	</div>
 );
 
 const RenderAsYouFetchOrchestrator = () => {
 	const { id } = useParams();
 	const key = String(id);
-	const cache = useRef<
-		Map<string, { post: Promise<Post>; comments: Promise<Comment[]> }>
-	>(new Map());
 
-	if (!cache.current.get(key)) {
-		const post = getPostById(key);
-		const comments = getCommentsByPostId(key);
-		cache.current.set(key, { post, comments });
+	if (!orchestratorCache.has(key)) {
+		const post = getPostById(+key);
+		const comments = getCommentsByPostId(+key);
+		orchestratorCache.set(key, { post, comments });
 	}
 
 	return (
 		<>
 			<ErrorBoundary fallbackRender={fallbackRender}>
 				<Suspense fallback={<Loading message={`Loading post ${key}`} />}>
-					<RenderAsYouFetchPost promise={cache.current.get(key)!.post} />
+					<RenderAsYouFetchPost promise={orchestratorCache.get(key)!.post} />
 				</Suspense>
 			</ErrorBoundary>
 			<ErrorBoundary fallbackRender={fallbackRender}>
@@ -40,7 +47,7 @@ const RenderAsYouFetchOrchestrator = () => {
 					fallback={<Loading message={`Loading comments for post ${key}`} />}
 				>
 					<RenderAsYouFetchComments
-						promise={cache.current.get(key)!.comments}
+						promise={orchestratorCache.get(key)!.comments}
 					/>
 				</Suspense>
 			</ErrorBoundary>
