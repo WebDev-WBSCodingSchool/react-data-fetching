@@ -9,7 +9,7 @@ import {
 import { getPostById, getCommentsByPostId } from '../api';
 import type { Post, Comment } from '../types';
 
-// Module-level cache avoids mutating refs during render
+// Module-level cache
 const orchestratorCache = new Map<
 	string,
 	{ post: Promise<Post>; comments: Promise<Comment[]> }
